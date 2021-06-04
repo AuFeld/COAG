@@ -1,1 +1,9 @@
 pytest
+fastapi
+uvicorn
+docker
+mangum
+boto3
+SQLAlchemy
+psycopg2-binary
+alembic
