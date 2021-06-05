@@ -7,3 +7,9 @@ Our mission to provide users with the best job opportunities to grow your career
 # BE Architecture
 
 ![Architecture](/assets/coag_be.png)
+
+# Status
+
+[![Docker Image CI](https://github.com/AuFeld/COAG/actions/workflows/docker.yaml/badge.svg)](https://github.com/AuFeld/COAG/actions/workflows/docker.yaml)
+
+[![Python package](https://github.com/AuFeld/COAG/actions/workflows/build.yaml/badge.svg)](https://github.com/AuFeld/COAG/actions/workflows/build.yaml)
