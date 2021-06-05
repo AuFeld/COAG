@@ -129,5 +129,4 @@ dmypy.json
 .pyre/
 
 # Other
-
-docker-image.yaml
+my_notes.md 
