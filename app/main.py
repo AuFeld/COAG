@@ -1,13 +1,15 @@
 from fastapi import FastAPI
+from app.routes.company_routes import GrowjoAPI as GrowjoAPIRouter
 
-from app.api.growjoAPI_v1.api import router as api_router
 from mangum import Mangum
 
 app = FastAPI()
 
-@app.get("/")
-async def root():
-    return {"message": "Shalom!"}
+app.include_router(GrowjoAPIRouter, tags=["Company"], prefix="/company")
 
-app.include_router(api_router, prefix="/api/v1")
+@app.get("/", tags=["Root"])
+async def root():
+    return {"message": "Welcome to COAG!"}
+
+
 handler = Mangum(app)
