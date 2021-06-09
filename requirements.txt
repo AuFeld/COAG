@@ -6,6 +6,7 @@ mangum==0.11.0
 boto3==1.17.90
 botocore==1.20.87
 bson==0.5.10
+motor==2.4.0
 pydantic==1.8.2
 python-dotenv==0.17.1
 starlette==0.14.2
