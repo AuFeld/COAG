@@ -8,19 +8,19 @@ class GrowjoSchema(BaseModel):
     url: Optional[HttpUrl] = Field(...)
     city: Optional[str] = Field(...)
     country: Optional[str] = Field(...)
-    employess: Optional[int] = Field(...)
+    employess: Optional[str] = Field(...)
     linkedin_url: Optional[HttpUrl] = Field(...) 
-    founded: Optional[int] = Field(...)
+    founded: Optional[str] = Field(...)
     industry: Optional[str] = Field(...)
-    growjo_ranking: Optional[int] = Field(...)
-    previous_ranking: Optional[int] = Field(...) 
-    estimated_revenues: Optional[int] = Field(...)
-    job_openings: Optional[int] = Field(...)
+    growjo_ranking: Optional[str] = Field(...)
+    previous_ranking: Optional[str] = Field(...) 
+    estimated_revenues: Optional[str] = Field(...)
+    job_openings: Optional[str] = Field(...)
     keywords: Optional[str] = Field(...)
     lead_investors: Optional[str] = Field(...)
     accelerator: Optional[str] = Field(...)
     btype: Optional[str] = Field(...)
-    valuation: Optional[int] = Field(...)
+    valuation: Optional[str] = Field(...)
     total_funding: Optional[str] = Field(...)
     product_url: Optional[HttpUrl] = Field(...)
     indeed_url: Optional[HttpUrl] = Field(...)
@@ -43,14 +43,14 @@ class UpdateGrowjoModel(BaseModel):
     url: Optional[HttpUrl]
     city: Optional[str]
     country: Optional[str]
-    employess: Optional[int]
+    employess: Optional[str]
     linkedin_url: Optional[HttpUrl] 
-    founded: Optional[int]
+    founded: Optional[str]
     industry: Optional[str]
-    growjo_ranking: Optional[int]
-    previous_ranking: Optional[int] 
-    estimated_revenues: Optional[int]
-    job_openings: Optional[int]
+    growjo_ranking: Optional[str]
+    previous_ranking: Optional[str] 
+    estimated_revenues: Optional[str]
+    job_openings: Optional[str]
     keywords: Optional[str]
     lead_investors: Optional[str]
     accelerator: Optional[str]

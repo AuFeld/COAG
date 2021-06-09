@@ -17,7 +17,7 @@ conn = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URI)
 db = conn.COAG
 
 # identify collection in the db
-growjo_collection = db.Growjo3
+growjo_collection = db.Growjo
 
 """
 Helpers
@@ -30,19 +30,19 @@ def growjo_helper(entity) -> dict:
         "url": str(entity["url"]), 
         "city": str(entity["city"]),
         "country": str(entity["country"]), 
-        "employess": int(entity["employees"]),
+        "employess": str(entity["employees"]),
         "linkedin_url": str(entity["linkedin_url"]),
-        "founded": int(entity["founded"]), 
+        "founded": str(entity["founded"]), 
         "industry": str(entity["industry"]),
-        "growjo_ranking": int(entity["growjo_ranking"]), 
-        "previous_ranking": int(entity["previous_ranking"]), 
-        "estimated_revenues": int(entity["estimated_revenues"]),
-        "job_openings": int(entity["job_openings"]),
+        "growjo_ranking": str(entity["growjo_ranking"]), 
+        "previous_ranking": str(entity["previous_ranking"]), 
+        "estimated_revenues": str(entity["estimated_revenues"]),
+        "job_openings": str(entity["job_openings"]),
         "keywords": str(entity["keywords"]),
         "lead_investors": str(entity["lead_investors"]),
         "accelerator": str(entity["accelerator"]),
         "btype": str(entity["btype"]), 
-        "valuation": int(entity["valuation"]), 
+        "valuation": str(entity["valuation"]), 
         "total_funding": str(entity["total_funding"]),
         "product_url": str(entity["product_url"]),
         "indeed_url": str(entity["indeed_url"]),
@@ -68,7 +68,7 @@ async def add_company(company_data: dict) -> dict:
 
 # retrieve a company with a matching ID
 async def retrieve_company(id: str) -> dict:
-    entity = await growjo_collection.find_one({"_if": ObjectId(id)})
+    entity = await growjo_collection.find_one({"_id": ObjectId(id)})
     if entity:
         return growjo_helper(entity)
 
