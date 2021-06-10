@@ -11,7 +11,7 @@ cffi==1.14.5
 chardet==4.0.0
 click==8.0.1
 cliff==3.8.0
-cmd2==1.5.0
+cmd2==2.0.1
 colorama==0.4.4
 cryptography==3.4.7
 debtcollector==2.2.0
