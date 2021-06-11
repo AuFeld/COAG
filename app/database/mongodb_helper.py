@@ -1,23 +1,6 @@
-import os 
-from dotenv import load_dotenv
-import motor.motor_asyncio
 from bson.objectid import ObjectId
+from app.database.mongodb import growjo_collection
 
-"""
-Parameters for Connecting to MongoDB
-"""
-# load params from dotenv
-load_dotenv()
-MONGODB_URI = os.environ['mongodb_uri']
-
-# connect to MongoDB cluster
-conn = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URI)
-
-# identify db in the cluster
-db = conn.COAG
-
-# identify collection in the db
-growjo_collection = db.Growjo
 
 """
 Helpers
@@ -53,10 +36,23 @@ def growjo_helper(entity) -> dict:
 CRUD Operations
 """
 
-# retrieve all companies in the database
+# top10 fastest growing companies in the US vars 
+filter={
+    'country': 'United States'
+}
+sort=list({
+    'growjo_ranking': 1
+}.items())
+limit=10
+
+# retrieve top 10 fastest growing US companies in the database
 async def retrieve_companies():
     companies = []
-    async for entity in growjo_collection.find():
+    async for entity in growjo_collection.find(
+        filter=filter,
+        sort=sort,
+        limit=limit,
+    ):
         companies.append(growjo_helper(entity))
     return companies
 

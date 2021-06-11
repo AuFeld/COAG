@@ -1,7 +1,7 @@
 from fastapi.encoders import jsonable_encoder
 from fastapi import APIRouter, Body
 
-from app.database.mongo_db import (
+from app.database.mongodb_helper import (
     add_company,
     delete_company,
     retrieve_company,
@@ -28,7 +28,8 @@ async def add_company_data(company: GrowjoSchema = Body(...)):
 async def get_companies():
     companies = await retrieve_companies()
     if companies:
-        return ResponseModel(companies, "Companies data retrieved successfully!")
+        return ResponseModel(companies, 
+        "Top 10 Fastest Growing US Companies data retrieved successfully!")
     return ResponseModel(companies, "Empty list returned")
 
 @GrowjoAPI.get("/{id}", response_description="Company data retrieved")
