@@ -8,7 +8,7 @@ Parameters for Connecting to MongoDB
 
 # load params from dotenv
 load_dotenv()
-MONGODB_URI = os.environ['mongodb_uri']
+MONGODB_URI = os.environ.get('mongodb_uri')
 
 # connect to MongoDB cluster
 conn = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URI)
