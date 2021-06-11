@@ -38,9 +38,15 @@ CRUD Operations
 
 # top10 fastest growing companies in the US vars 
 filter={
+    'country': {
+        '$exists': True
+    }, 
     'country': 'United States'
 }
 sort=list({
+    'growjo_ranking': {
+        '$exists': True
+    }, 
     'growjo_ranking': 1
 }.items())
 limit=10
