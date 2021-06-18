@@ -1,7 +1,7 @@
 from fastapi.encoders import jsonable_encoder
 from fastapi import APIRouter, Body
 
-from app.database.mongodb_helper import (
+from app.database.crud import (
     add_company,
     delete_company,
     retrieve_company,
