@@ -18,3 +18,5 @@ db = conn.COAG
 
 # identify collection in the db
 growjo_collection = db.Growjo1
+indeed_collection = db.indeed_data
+linkedin_collection = db.linkedin_data

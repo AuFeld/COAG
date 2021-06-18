@@ -1,9 +1,6 @@
-from bson.objectid import ObjectId
-from app.database.mongodb import growjo_collection
-
 
 """
-Helpers
+Helper Functions
 """
 
 def growjo_helper(entity) -> dict:
@@ -32,66 +29,38 @@ def growjo_helper(entity) -> dict:
         "growth_percentage": str(entity["growth_percentage"]),
     }
 
-"""
-CRUD Operations
-"""
-
-# top10 fastest growing companies in the US vars 
-filter={
-    'country': {
-        '$exists': True
-    }, 
-    'country': 'United States'
-}
-sort=list({
-    'growjo_ranking': {
-        '$exists': True
-    }, 
-    'growjo_ranking': 1
-}.items())
-limit=10
-
-# retrieve top 10 fastest growing US companies in the database
-async def retrieve_companies():
-    companies = []
-    async for entity in growjo_collection.find(
-        filter=filter,
-        sort=sort,
-        limit=limit,
-    ):
-        companies.append(growjo_helper(entity))
-    return companies
-
-# add a new company into the database
-async def add_company(company_data: dict) -> dict:
-    entity = await growjo_collection.insert_one(company_data)
-    new_company = await growjo_collection.find_one({"_id": entity.inserted_id})
-    return growjo_helper(new_company)
-
-# retrieve a company with a matching ID
-async def retrieve_company(id: str) -> dict:
-    entity = await growjo_collection.find_one({"_id": ObjectId(id)})
-    if entity:
-        return growjo_helper(entity)
-
-# update a company with a matching ID
-async def update_company(id: str, data: dict):
-    # return false if any empty request body is sent
-    if len(data) < 1:
-        return False
-    entity = await growjo_collection.find_one({"_id": ObjectId(id)})
-    if entity: 
-        updated_company = await growjo_collection.update_one(
-                            {"_id": ObjectId(id)}, {"$set": data})
-        if updated_company:
-            return True
-        return False
-
-# delete a company from the database
-async def delete_company(id: str):
-    entity = await growjo_collection.find_one({"_id": ObjectId(id)})
-    if entity: 
-        await growjo_collection.delete_one({"_id": ObjectId(id)})
-        return True
-
-
+def indeed_helper(entity) -> dict:
+    return {
+        "id": int(entity["id"]),
+        "jobtitle": str(entity["jobtitle"]),
+        "company":str(entity["company"]),
+        "location": str(entity["location"]),
+        "summary": str(entity["summary"]),
+        "requirements": str(entity["requirements"]),
+        "description": str(entity["description"]),
+        "state": str(entity["state"]),
+        "city": str(entity["city"]),
+        "dateposted": str(entity["dateposted"]),
+        "schedule": str(entity["schedule"]),
+        "salary": str(entity["salary"]),
+        "role": str(entity["role"]),
+        "focus": str(entity["focus"]),
+    }
+    
+def linkedin_helper(entity) -> dict:
+    return {
+        "id": int(entity["id"]),
+        "jobtitle": str(entity["jobtitle"]),
+        "company":str(entity["company"]),
+        "location": str(entity["location"]),
+        "summary": str(entity["summary"]),
+        "requirements": str(entity["requirements"]),
+        "description": str(entity["description"]),
+        "state": str(entity["state"]),
+        "city": str(entity["city"]),
+        "dateposted": str(entity["dateposted"]),
+        "schedule": str(entity["schedule"]),
+        "salary": str(entity["salary"]),
+        "role": str(entity["role"]),
+        "focus": str(entity["focus"]),
+    }
