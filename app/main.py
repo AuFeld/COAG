@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from app.routes.company_routes import GrowjoAPI as GrowjoAPIRouter
+#from app.oauth import OAuth as OAuthRouter
 from mangum import Mangum
 
 tags_metadata = [
@@ -22,8 +23,11 @@ app = FastAPI(
     title="COAG",
     description="An application for career opportunities and growth"
 )
-
+# router for growjo data
 app.include_router(GrowjoAPIRouter, tags=["Growjo"], prefix="/growjo")
+
+# router for oauth
+#app.include_router(OAuthRouter)
 
 @app.get("/", tags=["Root"])
 async def root():
