@@ -29,3 +29,10 @@ typing-extensions==3.10.0.0
 urllib3==1.26.5
 uvicorn==0.14.0
 websocket-client==1.1.0
+pytz==2021.1
+ujson==4.0.2
+opentracing==2.4.0
+jaeger-client==4.5
+threadloop==1.0.2
+thrift==0.13.0
+tornado==6.1
