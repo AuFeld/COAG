@@ -1,11 +1,16 @@
 from fastapi import FastAPI
-from app.routes.company_routes import GrowjoAPI as GrowjoAPIRouter
+from app.routes.company_routes import AtlasAPI
 #from app.oauth import OAuth as OAuthRouter
 from mangum import Mangum
+from app.database.utils import setup_mongodb
+from app.common.middlewares import StateRequestIDMiddleware
+from app.tracing.middlewares import OpentracingMiddleware
+from app.tracing.utils import setup_opentracing 
+from app.exception_handlers import setup_exception_handlers
 
 tags_metadata = [
     {
-        "name": "Growjo",
+        "name": "Atlas",
         "description": "Router for Growjo data",
         "externalDocs": {
             "description": "Growjo URL",
@@ -21,10 +26,19 @@ tags_metadata = [
 app = FastAPI(
     openapi_tags=tags_metadata,
     title="COAG",
-    description="An application for career opportunities and growth"
+    description="A data driven application for career opportunities and growth"
 )
-# router for growjo data
-app.include_router(GrowjoAPIRouter, tags=["Growjo"], prefix="/growjo")
+# mongodb connection at startup + config
+@app.on_event('startup')
+async def startup():
+    setup_mongodb(app)
+    app.add_middleware(StateRequestIDMiddleware)
+    setup_opentracing(app)
+    app.add_middleware(OpentracingMiddleware)
+    setup_exception_handlers(app)
+
+# routers
+app.include_router(AtlasAPI, tags=["Atlas"], prefix="/growjo")
 
 # router for oauth
 #app.include_router(OAuthRouter)
