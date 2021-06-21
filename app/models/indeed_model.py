@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from pydantic.types import date
 
-class Indeed(BaseModel): 
+class IndeedModel(BaseModel): 
     id: str = Field(...)
     jobtitle: Optional[str] = Field(...)
     company: Optional[str] = Field(...)
@@ -35,3 +35,13 @@ class Indeed(BaseModel):
                 "state": "CA",
             }
         }
+
+    def ResponseModel(data, message):
+        return {
+            "data": [data],
+            "code": 200,
+            "message": message,
+        }
+    
+    def ErrorResponseModel(error, code, message):
+        return{"error": error, "code": code, "message": message}
