@@ -1,22 +1,32 @@
 import os 
 from dotenv import load_dotenv
-import motor.motor_asyncio
+from motor.motor_asyncio import AsyncIOMotorClient
 
-"""
-Parameters for Connecting to MongoDB
-"""
+'''
+parameters for connecting to MongoDB Compass (local)
+'''
 
 # load params from dotenv
 load_dotenv()
 MONGODB_URI = os.environ.get('mongodb_uri')
 
 # connect to MongoDB cluster
-conn = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URI)
+conn = AsyncIOMotorClient(MONGODB_URI)
 
-# identify db in the cluster
-db = conn.COAG
+'''
+parameters for connecting to MongoDB Atlas (cloud)
+'''
 
-# identify collection in the db
+# connect to Atlas
+atlas_uri = os.environ.get('atlas_uri')
+client = AsyncIOMotorClient(atlas_uri, serverSelectionTimeoutMS=5000)
+
+# identify db in atlas
+db = client.COAG
+
+# identify collection vars in the db
 growjo_collection = db.Growjo1
 indeed_collection = db.indeed_data
 linkedin_collection = db.linkedin_data
+
+

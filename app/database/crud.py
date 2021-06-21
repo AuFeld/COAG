@@ -14,7 +14,7 @@ from app.database.mongodb_helper import (
 CRUD Operations
 """
 
-# top10 fastest growing companies in the US vars 
+# top 25 fastest growing companies in the US params
 filter={
     'country': {
         '$exists': True
@@ -27,9 +27,9 @@ sort=list({
     }, 
     'growjo_ranking': 1
 }.items())
-limit=10
+limit=25
 
-# retrieve top 10 fastest growing US companies in the database
+# retrieve top 25 fastest growing US companies in the database
 async def retrieve_companies():
     companies = []
     async for entity in growjo_collection.find(
