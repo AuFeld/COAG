@@ -16,30 +16,31 @@ from app.models.company_model import (
     UpdateGrowjoModel,
 )
 
-GrowjoAPI = APIRouter()
+AtlasAPI = APIRouter()
 
-@GrowjoAPI.post("/", response_description="Company data added into the database")
+@AtlasAPI.post("/", response_description="Company data added into the database")
 async def add_company_data(company: GrowjoSchema = Body(...)):
     company = jsonable_encoder(company)
     new_company = await add_company(company)
     return ResponseModel(new_company, "Company added successfully!")
 
-@GrowjoAPI.get("/", response_description="Companies retrieved")
+@AtlasAPI.get("/", 
+    response_description="Returned Fastest Growing Companies in the US")
 async def get_companies():
     companies = await retrieve_companies()
     if companies:
         return ResponseModel(companies, 
-        "Top 10 Fastest Growing US Companies data retrieved successfully!")
+        "Top 25 Fastest Growing US Companies data retrieved successfully!")
     return ResponseModel(companies, "Empty list returned")
 
-@GrowjoAPI.get("/{id}", response_description="Company data retrieved")
+@AtlasAPI.get("/{id}", response_description="Company data retrieved")
 async def get_company_data(id):
     company = await retrieve_company(id)
     if company: 
         return ResponseModel(company, "Company data retrieved successfully")
     return ErrorResponseModel("An error occured.", 404, "Company doesn't exist.")
 
-@GrowjoAPI.put("/{id}")
+@AtlasAPI.put("/{id}")
 async def update_company_data(id: str, req: UpdateGrowjoModel = Body(...)):
     req = {k: v for k, v in req.dict().items() if v is not None}
     updated_company = await update_company(id, req)
@@ -54,7 +55,7 @@ async def update_company_data(id: str, req: UpdateGrowjoModel = Body(...)):
         "There was an error updating the company data.",
     )
 
-@GrowjoAPI.delete("/{id}", 
+@AtlasAPI.delete("/{id}", 
     response_description="Company data deleted from the database")
 async def delete_company_data(id: str):
     deleted_company = await delete_company(id)
