@@ -9,7 +9,7 @@ from app.models.indeed_model import (
     IndeedModel,
 )
 
-
+'''
 Indeed = APIRouter()
 
 client = IndeedClient(publisher= 'YOUR_PUBLISHER_NUMBER')
@@ -36,3 +36,4 @@ search_response = client.search(**params)
 indeed_response = client.jobs(jobkeys = ("job_key1", "job_key2"))
 indeed_response = json.load(indeed_response)
 
+'''
