@@ -1,3 +1,4 @@
+from app.common.responses import UJSONResponse
 from fastapi import FastAPI
 from app.routes.company_routes import AtlasAPI
 #from app.oauth import OAuth as OAuthRouter
@@ -24,6 +25,7 @@ tags_metadata = [
 ]
 
 app = FastAPI(
+    default_response_class=UJSONResponse,
     openapi_tags=tags_metadata,
     title="COAG",
     description="A data driven application for career opportunities and growth"
