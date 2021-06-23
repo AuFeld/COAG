@@ -19,7 +19,7 @@ class Serializer(BaseModel):
     Base Serializer class.
 
     Almost ALWAYS should be used in conjunction with
-    `fastapi_contrib.serializers.openapi.patch` decorator to correctly handle
+    `app.serializers.openapi.patch` decorator to correctly handle
     inherited model fields and OpenAPI Schema generation with `response_model`.
 
     Responsible for sanitizing data & converting JSON to & from MongoDBModel.

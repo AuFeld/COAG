@@ -1,13 +1,15 @@
 import os 
 from pathlib import Path 
-
+from app.database.mongodb import atlas_uri
 from pydantic import BaseSettings
 from typing import List, Optional
 
-contrib_secrets_dir: Optional[str] = os.environ.get("mongodb_uri")
+contrib_secrets_dir: Optional[str] = os.environ.get(
+    "CONTRIB_SECRETS_DIR", "/run/secrets"
+)
 
 if not Path(contrib_secrets_dir).exists():
-    contrib_secrets_dir = None 
+    contrib_secrets_dir = None
 
 class Settings(BaseSettings):
     '''
@@ -45,15 +47,15 @@ class Settings(BaseSettings):
     debug_timing: bool = False
     request_id_header: str = "Request-ID"
 
-    service_name: str = "fastapi_contrib"
+    service_name: str = "COAG"
     trace_id_header: str = "X-TRACE-ID"
     jaeger_host: str = "jaeger"
     jaeger_port: int = 5775
     jaeger_sampler_type: str = "probabilistic"
     jaeger_sampler_rate: float = 1.0
 
-    mongodb_dsn: str = "atlas_uri"
-    mongodb_dbname: str = "Atlas"
+    mongodb_dsn: str = "app.datasbase.mongodb.atlas_uri"
+    mongodb_dbname: str = "COAG"
     mongodb_min_pool_size: int = 0
     mongodb_max_pool_size: int = 100
     mongodb_id_generator: str = "app.database.utils.default_id_generator"

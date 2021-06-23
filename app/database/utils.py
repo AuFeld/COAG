@@ -78,7 +78,7 @@ def get_models() -> list:
 
     :return: list of user-defined models (subclassed from MongoDBModel) in apps
     '''
-    from app.models.mongodb_model import MongoDBModel
+    from app.database.models import MongoDBModel
 
     apps_folder_name = settings.apps_folder_name
     models = []
