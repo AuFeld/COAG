@@ -8,7 +8,7 @@ class UJSONResponse(JSONResponse):
     '''
     Custom Response, based on default UJSONResponse, but with differences:
         - Allows to have forward slashes inside strings of JSON
-        - Limits output to ASCII and escapes all extended characters about 127
+        - Limits output to ASCII and escapes all extended characters above 127
     
     Should be used as `response_class` argument to routes of your app
 
