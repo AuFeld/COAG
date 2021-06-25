@@ -10,21 +10,8 @@ from app.exception_handlers import setup_exception_handlers
 from app.user_conf import (
     fastapi_users, jwt_authentication, on_after_register, SECRET, 
     on_after_forgot_password, after_verification_request, google_oauth_client )
+from app.tags import tags_metadata
 
-tags_metadata = [
-    {
-        "name": "Atlas",
-        "description": "Router for Growjo data",
-        "externalDocs": {
-            "description": "Growjo URL",
-            "url": "https://wwww.growjo.com/",
-        },
-    },
-        {
-            "name": "Root",
-            "description": "Base API",
-        },
-]
 
 app = FastAPI(
     default_response_class=UJSONResponse,
