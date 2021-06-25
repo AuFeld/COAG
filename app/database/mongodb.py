@@ -28,3 +28,7 @@ db = client.COAG
 growjo_collection = db.Growjo1
 indeed_collection = db.indeed_data
 linkedin_collection = db.linkedin_data
+
+# conn to data lake
+
+mongo_data_lake = os.environ.get("mongo_data_lake")

@@ -1,6 +1,5 @@
 import os 
 from pathlib import Path 
-from app.database.mongodb import atlas_uri
 from pydantic import BaseSettings
 from typing import List, Optional
 
@@ -65,7 +64,7 @@ class Settings(BaseSettings):
 
     fastapi_app: str = None  # e.g. "project.server.app", where app = FastAPI()
 
-    user_model: str = "app.auth.models.User"
+    user_model: str = "app.auth.models.users"
     token_model: str = "app.auth.models.Token"
     token_generator: str = "app.auth.utils.default_token_generator"
 

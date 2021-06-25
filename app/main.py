@@ -1,13 +1,15 @@
 from app.common.responses import UJSONResponse
 from fastapi import FastAPI
 from app.routes.company_routes import AtlasAPI
-#from app.oauth import OAuth as OAuthRouter
 from mangum import Mangum
 from app.database.utils import setup_mongodb
 from app.common.middlewares import StateRequestIDMiddleware
 from app.tracing.middlewares import OpentracingMiddleware
 from app.tracing.utils import setup_opentracing 
 from app.exception_handlers import setup_exception_handlers
+from app.user_conf import (
+    fastapi_users, jwt_authentication, on_after_register, SECRET, 
+    on_after_forgot_password, after_verification_request, google_oauth_client )
 
 tags_metadata = [
     {
@@ -26,11 +28,16 @@ tags_metadata = [
 
 app = FastAPI(
     default_response_class=UJSONResponse,
+    fastapi_users=fastapi_users,
     openapi_tags=tags_metadata,
     title="COAG",
     description="A data driven application for career opportunities and growth"
 )
-# mongodb connection at startup + config
+
+'''
+MongoDB Conn & Config at Startup w/ Middleware
+'''
+
 @app.on_event('startup')
 async def startup():
     setup_mongodb(app)
@@ -39,15 +46,44 @@ async def startup():
     app.add_middleware(OpentracingMiddleware)
     setup_exception_handlers(app)
 
-# routers
-app.include_router(AtlasAPI, tags=["Atlas"], prefix="/growjo")
-
-# router for oauth
-#app.include_router(OAuthRouter)
+'''
+Routes
+'''
 
 @app.get("/", tags=["Root"])
 async def root():
     return {"message": "Welcome to COAG!"}
+    
+app.include_router(AtlasAPI, tags=["Atlas"], prefix="/growjo")
+app.include_router(
+    fastapi_users.get_auth_router(jwt_authentication), prefix="/auth/jwt", tags=["Auth"]
+)
+app.include_router(
+    fastapi_users.get_register_router(on_after_register), prefix="/auth", tags=["Auth"]
+)
+app.include_router(
+    fastapi_users.get_reset_password_router(
+        SECRET, after_forgot_password=on_after_forgot_password
+    ),
+    prefix="/auth",
+    tags=["Auth"],
+)
+app.include_router(
+    fastapi_users.get_verify_router(
+        SECRET, after_verification_request=after_verification_request
+    ),
+    prefix="/auth",
+    tags=["Auth"],
+)
+app.include_router(fastapi_users.get_users_router(), prefix="/users", tags=["Users"])
 
+google_oauth_router = fastapi_users.get_oauth_router(
+    google_oauth_client, SECRET, after_register=on_after_register
+)
+app.include_router(google_oauth_router, prefix="/auth/google", tags=["Auth"])
+
+'''
+Adapter for AWS Lambda & API Gateway
+'''
 
 handler = Mangum(app)
