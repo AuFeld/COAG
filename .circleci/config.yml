@@ -53,15 +53,7 @@ workflows:
       jobs: 
           - build-and-test:
               context: coag-cicd
-              filters:
-                branches:
-                  only:
-                    - main
           - deploy-dev: 
               context: coag-cicd
               requires:
                 - build-and-test
-              filters: 
-                branches:
-                  only:
-                    - main
