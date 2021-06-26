@@ -5,7 +5,7 @@ orbs:
   aws-cli: circleci/aws-cli@2.1.10
 
 jobs:  
-  build-and-test:
+  build:
     executor:
       name: python/default
       tag: '3.9'
@@ -32,7 +32,7 @@ jobs:
           paths:
             - function.zip
 
-    deploy-dev: 
+    deploy: 
       executor: aws-cli/default
       steps: 
         - attach_workspace: 
@@ -51,9 +51,15 @@ jobs:
 workflows:
   main: 
       jobs: 
-          - build-and-test:
-              context: coag-cicd
-          - deploy-dev: 
-              context: coag-cicd
-              requires:
-                - build-and-test
+        - build:
+            context: 
+              - coag-cicd
+        - deploy: 
+            context: 
+              - coag-cicd
+            requires:
+                - build
+            filters: 
+              branches:
+                only: 
+                  - main
