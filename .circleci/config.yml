@@ -1,11 +1,11 @@
 version: 2.1
 
-orb:
-  python: circleci/python@1.0.0
+orbs:  
+  python: circleci/python@1.4.0
 
-jobs: 
+jobs:  
   build-and-test:
-    executor: 
+    executor:
       name: python/default
       tag: '3.9'
     steps:
@@ -14,16 +14,12 @@ jobs:
           name: Setup Virtual Env
           command: |
             virtualenv -p python3.9 venv
-            echo "source ./venv/bin/activate" >> $BASH_ENV 
-      - run: 
+            echo "source ./venv/bin/activate" >> $BASH_ENV
+      - run:
           name: Install Dependencies
           command: pip install -r requirements.txt
 
 workflows:
-  build-test-and-deploy:
-    jobs:
-      - build-and-test:
-        filters:
-          branches:
-            only:
-              - cicd-dev
+  main: 
+      jobs: 
+          - build-and-test
