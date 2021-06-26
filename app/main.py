@@ -1,4 +1,3 @@
-from app.common.responses import UJSONResponse
 from fastapi import FastAPI
 from app.routes.company_routes import AtlasAPI
 from mangum import Mangum
@@ -14,7 +13,6 @@ from app.tags import tags_metadata
 
 
 app = FastAPI(
-    default_response_class=UJSONResponse,
     fastapi_users=fastapi_users,
     openapi_tags=tags_metadata,
     title="COAG",
