@@ -49,14 +49,15 @@ jobs:
           command: aws lambda update-function-code --function-name coag-lambda --s3-bucket coag --s3-key function.zip
 
 workflows:
+  version: 2
   build-and-deploy: 
       jobs: 
         - build:
             context: coag-cicd
         - deploy: 
             context: coag-cicd
-            requires:
-                - build
+            requires: 
+              - build
             filters: 
               branches:
                 only: 
