@@ -10,7 +10,7 @@ from app.user_conf import (
     fastapi_users, jwt_authentication, on_after_register, SECRET, 
     on_after_forgot_password, after_verification_request, google_oauth_client )
 from app.tags import tags_metadata
-
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     fastapi_users=fastapi_users,
@@ -70,5 +70,12 @@ app.include_router(google_oauth_router, prefix="/auth/google", tags=["Auth"])
 '''
 Adapter for AWS Lambda & API Gateway
 '''
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins='*',
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS", "PUT", "DELETE", "PATCH"],
+    allow_headers=["x-apigateway-header", "Content-Type", "X-Amz-Date"],
+)
 
 handler = Mangum(app)
