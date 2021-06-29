@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from app.routes.company_routes import AtlasAPI
 from mangum import Mangum
 from app.database.utils import setup_mongodb
-from app.common.middlewares import StateRequestIDMiddleware
-from app.tracing.middlewares import OpentracingMiddleware
-from app.tracing.utils import setup_opentracing 
-from app.exception_handlers import setup_exception_handlers
+# from app.common.middlewares import StateRequestIDMiddleware
+# from app.tracing.middlewares import OpentracingMiddleware
+# from app.tracing.utils import setup_opentracing 
+# from app.exception_handlers import setup_exception_handlers
 from app.user_conf import (
     fastapi_users, jwt_authentication, on_after_register, SECRET, 
     on_after_forgot_password, after_verification_request, google_oauth_client )
@@ -26,10 +26,14 @@ MongoDB Conn & Config at Startup w/ Middleware
 @app.on_event('startup')
 async def startup():
     setup_mongodb(app)
-    app.add_middleware(StateRequestIDMiddleware)
-    setup_opentracing(app)
-    app.add_middleware(OpentracingMiddleware)
-    setup_exception_handlers(app)
+    # adapter for AWS Lambda + API Gateway
+    app.add_middleware(
+    CORSMiddleware,
+    allow_origins='*',
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 '''
 Routes
@@ -68,14 +72,7 @@ google_oauth_router = fastapi_users.get_oauth_router(
 app.include_router(google_oauth_router, prefix="/auth/google", tags=["Auth"])
 
 '''
-Adapter for AWS Lambda & API Gateway
+AWS Handler
 '''
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins='*',
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 handler = Mangum(app)
