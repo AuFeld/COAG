@@ -16,7 +16,8 @@ app = FastAPI(
     fastapi_users=fastapi_users,
     openapi_tags=tags_metadata,
     title="COAG",
-    description="A data driven application for career opportunities and growth"
+    description="A data driven application for career opportunities and growth",
+    root_path="/dev/"
 )
 
 '''
