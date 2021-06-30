@@ -2,10 +2,6 @@ from fastapi import FastAPI
 from app.routes.company_routes import AtlasAPI
 from mangum import Mangum
 from app.database.utils import setup_mongodb
-# from app.common.middlewares import StateRequestIDMiddleware
-# from app.tracing.middlewares import OpentracingMiddleware
-# from app.tracing.utils import setup_opentracing 
-# from app.exception_handlers import setup_exception_handlers
 from app.user_conf import (
     fastapi_users, jwt_authentication, on_after_register, SECRET, 
     on_after_forgot_password, after_verification_request, google_oauth_client )
@@ -16,8 +12,7 @@ app = FastAPI(
     fastapi_users=fastapi_users,
     openapi_tags=tags_metadata,
     title="COAG",
-    description="A data driven application for career opportunities and growth",
-    root_path="/dev/"
+    description="A data driven application for career opportunities and growth"
 )
 
 '''
