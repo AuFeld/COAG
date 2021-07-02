@@ -39,7 +39,7 @@ def get_oauth_router(
     state_secret: str,
     redirect_url: str = None,
     after_register: Optional[Callable[[users.UD, Request], None]] = None,
-) -> APIRouter:
+) -> APIRouter:  # sourcery no-metrics
     """Generate a router with the OAuth routes."""
     router = APIRouter()
     callback_route_name = f"{oauth_client.name}-callback"

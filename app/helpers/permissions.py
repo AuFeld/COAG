@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from starlette import status
 from starlette.requests import Request
 
-from app.exceptions import HTTPException
+from app.helpers.exceptions import HTTPException
 
 
 class BasePermission(ABC):

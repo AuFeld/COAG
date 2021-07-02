@@ -10,7 +10,7 @@ from typing import List
 from fastapi import FastAPI
 
 from app.common.utils import logger, resolve_dotted_path
-from app.conf import settings
+from app.config.conf import settings
 
 
 def default_id_generator(bit_size: int = 32) -> int: 
@@ -56,7 +56,7 @@ def setup_mongodb(app: FastAPI) -> None:
     app.mongodb = client[settings.mongodb_dbname]
 
 
-def get_db_client():
+def get_db_client():  # sourcery skip: inline-immediately-returned-variable
     '''
     Gets instance of MongoDB client for you to make DB queries.
     :return: MongoDBClient
@@ -117,7 +117,5 @@ async def create_indexes() -> List[str]:
     :return: list of indexes that has been involved to create
     '''
     models = get_models()
-    indexes = []
-    for model in models: 
-        indexes.append(await model.create_indexes())
+    indexes = [await model.create_indexes() for model in models]
     return list(filter(None, indexes))

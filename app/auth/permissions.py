@@ -1,7 +1,7 @@
 from starlette.requests import Request
 from starlette import status
 
-from app.permissions import BasePermission
+from app.helpers.permissions import BasePermission
 
 
 class IsAuthenticated(BasePermission):

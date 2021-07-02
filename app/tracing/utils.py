@@ -3,7 +3,7 @@ import warnings
 from jaeger_client import Config
 from opentracing.scope_managers.asyncio import AsyncioScopeManager
 
-from app.conf import settings
+from app.config.conf import settings
 
 
 def setup_opentracing(app):

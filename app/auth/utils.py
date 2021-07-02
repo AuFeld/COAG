@@ -2,7 +2,7 @@ import hashlib
 import os
 
 from app.common.utils import resolve_dotted_path
-from app.conf import settings
+from app.config.conf import settings
 
 
 def get_token_model():

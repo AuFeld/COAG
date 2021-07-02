@@ -9,7 +9,7 @@ from typing import Any
 
 from fastapi import FastAPI
 
-from app.conf import settings 
+from app.config.conf import settings 
 
 def resolve_dotted_path(path: str) -> Any: 
     '''

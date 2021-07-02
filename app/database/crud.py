@@ -1,5 +1,4 @@
 from bson.objectid import ObjectId
-#from app.api.indeed import indeed_response
 from app.database.mongodb import (
     growjo_collection, 
 #    indeed_collection, 
@@ -15,12 +14,7 @@ CRUD Operations
 """
 
 # top 25 fastest growing companies in the US params
-filter={
-    'country': {
-        '$exists': True
-    }, 
-    'country': 'United States'
-}
+filter = {'country': 'United States'}
 sort=list({
     'growjo_ranking': {
         '$exists': True
@@ -55,15 +49,13 @@ async def retrieve_company(id: str) -> dict:
 # update a company with a matching ID
 async def update_company(id: str, data: dict):
     # return false if any empty request body is sent
-    if len(data) < 1:
+    if not data:
         return False
     entity = await growjo_collection.find_one({"_id": ObjectId(id)})
     if entity: 
         updated_company = await growjo_collection.update_one(
                             {"_id": ObjectId(id)}, {"$set": data})
-        if updated_company:
-            return True
-        return False
+        return bool(updated_company)
 
 # delete a company from the database
 async def delete_company(id: str):

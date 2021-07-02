@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from app.routes.company_routes import AtlasAPI
 from mangum import Mangum
 from app.database.utils import setup_mongodb
-from app.user_conf import (
+from app.config.user_conf import (
     fastapi_users, jwt_authentication, on_after_register, SECRET, 
     on_after_forgot_password, after_verification_request, google_oauth_client )
-from app.tags import tags_metadata
+from app.config.tags import tags_metadata
 from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI(
