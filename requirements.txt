@@ -11,7 +11,7 @@ idna==2.10
 iniconfig==1.1.1
 mangum==0.11.0
 motor==2.4.0
-packaging==20.9
+packaging==21.0
 pluggy==0.13.1
 py==1.10.0
 pydantic==1.8.2
