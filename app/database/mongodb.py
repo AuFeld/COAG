@@ -25,7 +25,7 @@ client = AsyncIOMotorClient(atlas_uri, serverSelectionTimeoutMS=5000)
 db = client.COAG
 
 # identify collection vars in the db
-growjo_collection = db.Growjo1
+growjo_collection = db.Growjo
 indeed_collection = db.indeed_data
 linkedin_collection = db.linkedin_data
 

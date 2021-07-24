@@ -16,10 +16,10 @@ CRUD Operations
 # top 25 fastest growing companies in the US params
 filter = {'country': 'United States'}
 sort=list({
-    'growjo_ranking': {
+    'ranking': {
         '$exists': True
     }, 
-    'growjo_ranking': 1
+    'ranking': 1
 }.items())
 limit=25
 
