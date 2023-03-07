@@ -38,7 +38,7 @@ cffi==1.14.5
 cryptography==3.4.7
 httpcore==0.12.3
 httpx==0.17.1
-httpx-oauth==0.3.5
+httpx-oauth==0.11.0
 jwt==1.2.0
 passlib==1.7.4
 pycparser==2.20
