@@ -66,7 +66,7 @@ DOWNLOAD_DELAY = 5
 ITEM_PIPELINES = {
     'jobs.pipelines.MongoPipeline': 300,
 }
-MONGODB_URI = 'mongodb+srv://coag-chase:$$Ilovemywife2021@cluster1.r63o9.mongodb.net/COAG?retryWrites=true&w=majority'
+MONGODB_URI = os.environ.get('MONGODB_URI')
 MONGODB_DATABASE = 'jobscraper'
 COLLECTION = 'newly_scraped'
 
