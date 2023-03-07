@@ -12,7 +12,7 @@ iniconfig==1.1.1
 mangum==0.11.0
 motor==2.4.0
 packaging==21.0
-pluggy==0.13.1
+pluggy==1.0.0
 py==1.10.0
 pydantic==1.8.2
 pyparsing==2.4.7
